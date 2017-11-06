@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test
 import skynetRevEp1.Level
 
-class SkynetRevolutionEpisode1Test{
+class Test {
 
     @Test fun `azezae`() {
         val level = Level(3)
@@ -9,10 +9,7 @@ class SkynetRevolutionEpisode1Test{
         level.addLink(2,1)
         level.addGateway(2)
         val mostCriticalLink = level.getMostCriticalLink(1)
-
         println(mostCriticalLink)
-
-
     }
 
 }

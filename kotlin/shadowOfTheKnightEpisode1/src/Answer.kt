@@ -1,5 +1,3 @@
-package shadowOfTheKnightEpisode1
-
 import shadowOfTheKnightEpisode1.Direction.*
 import java.util.*
 
