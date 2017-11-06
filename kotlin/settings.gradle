@@ -1,0 +1,11 @@
+rootProject.name = 'codedgame-parent'
+
+include ':asciiart'
+include ':chevauxdecourse'
+include ':defibrillateur'
+include 'dontPanicEpisode1'
+include 'mimeType'
+include 'shadowOfTheKnightEpisode1'
+include 'skynetRevEp1'
+include 'thereisnospoonEp1'
+
