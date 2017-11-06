@@ -1,4 +1,4 @@
-import shadowOfTheKnightEpisode1.Direction.*
+import Direction.*
 import java.util.*
 
 fun main(args: Array<String>) {
@@ -6,6 +6,7 @@ fun main(args: Array<String>) {
 
     var possibleLocation = PossibleLocation(
             top = 0, left = 0, right = input.nextInt() - 1, bottom = input.nextInt() - 1)
+    @Suppress("UNUSED_VARIABLE")
     val turnLeft = input.nextInt()
     var batmanPosition = Point(input.nextInt(), input.nextInt())
 
