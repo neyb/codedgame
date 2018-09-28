@@ -6,7 +6,7 @@ fun main(args: Array<String>) {
 
     val input = Scanner(System.`in`)
     val playMap = readPlaymap(input)
-    val exitX = input.nextInt()
+    input.nextInt()
 
     // game loop
     while (true) {
@@ -88,7 +88,7 @@ private fun readPlaymap(input: Scanner): PlayMap {
             12 to Room(right to down),
             13 to Room(left to down))
 
-    val numberOfColumns = input.nextInt()
+    input.nextInt()
     val numberOflines = input.nextInt()
 
     if (input.hasNextLine()) input.nextLine()

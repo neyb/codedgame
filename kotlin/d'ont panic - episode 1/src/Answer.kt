@@ -10,13 +10,13 @@ fun main(args: Array<String>) {
     val width = input.nextInt() // width of the area
     val map = Map(List(nbFloors) { floor(width) })
 
-    val nbRounds = input.nextInt() // maximum number of rounds
+    input.nextInt() // maximum number of rounds
 
     map.setExit(input.readMapPosition())
 
-    val nbTotalClones = input.nextInt() // number of generated clones
+    input.nextInt() // number of generated clones
 
-    val nbAdditionalElevators = input.nextInt() // ignore (always zero)
+    input.nextInt() // ignore (always zero)
 
     (0 until input.nextInt()).forEach { map.addElevator(input.readMapPosition()) }
 

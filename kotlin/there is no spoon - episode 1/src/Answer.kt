@@ -3,7 +3,7 @@ import java.util.*
 fun main(args: Array<String>) {
     val input = Scanner(System.`in`)
 
-    val width = input.nextInt()
+    input.nextInt()
     val height = input.nextInt()
 
     input.endLine()
