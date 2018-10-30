@@ -1,9 +1,6 @@
 group 'codedgame'
 version '0.0.0'
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.10.2'
-}
 
 buildscript {
     ext.kotlin_version = '1.1.50'
@@ -16,6 +13,10 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
+}
+
+wrapper {
+    gradleVersion = '4.10.2'
 }
 
 subprojects {

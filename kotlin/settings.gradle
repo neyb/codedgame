@@ -1,14 +1,14 @@
 rootProject.name = 'codedgame-parent'
 
-include 'asciiart'
-include 'chevaux de course'
-include 'defibrillateur'
-include 'd\'ont panic - episode 1'
-include 'mimeType'
-include 'shadow of the knight - episode1'
-include 'skynet revolution - episode 1'
-include 'there is no spoon - episode 1'
-include 'la bataille'
-include 'the Last Crusade - episode 1'
-include 'organic compounds'
-include 'balanced ternary computer - encode'
+include "asciiart",
+        "chevaux-de-course",
+        "defibrillateur",
+        "d'ont-panic_episode-1",
+        "mimeType",
+        "shadow-of-the-knight_episode-1",
+        "skynet-revolution_episode-1",
+        "there-is-no-spoon_episode-1",
+        "la-bataille",
+        "the-last-crusade_episode-1",
+        "organic-compounds",
+        "balanced-ternary-computer_encode"
