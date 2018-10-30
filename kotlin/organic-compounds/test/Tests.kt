@@ -3,7 +3,6 @@ import io.kotlintest.specs.FreeSpec
 
 class `organic compound tests` : FreeSpec({
 
-
     sequenceOf(
             "CH3(1)CH3" to true,
             "CH3(2)CH3" to false,
