@@ -13,4 +13,5 @@ include "asciiart",
         "organic-compounds",
         "balanced-ternary-computer_encode",
         "simple-awale",
-	"whats-so-complex-about-mandelbrot"
+	    "whats-so-complex-about-mandelbrot",
+        "ghost-legs"
