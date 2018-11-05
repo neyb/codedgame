@@ -14,4 +14,5 @@ include "asciiart",
         "balanced-ternary-computer_encode",
         "simple-awale",
 	    "whats-so-complex-about-mandelbrot",
-        "ghost-legs"
+        "ghost-legs",
+		"scrabble"
