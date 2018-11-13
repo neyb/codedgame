@@ -1,18 +1,19 @@
 rootProject.name = 'codedgame-parent'
 
-include "asciiart",
-        "chevaux-de-course",
-        "defibrillateur",
-        "d'ont-panic_episode-1",
-        "mimeType",
-        "shadow-of-the-knight_episode-1",
-        "skynet-revolution_episode-1",
-        "there-is-no-spoon_episode-1",
-        "la-bataille",
-        "the-last-crusade_episode-1",
-        "organic-compounds",
-        "balanced-ternary-computer_encode",
-        "simple-awale",
-	    "whats-so-complex-about-mandelbrot",
-        "ghost-legs",
-		"scrabble"
+include "asciiart"
+include "chevaux-de-course"
+include "defibrillateur"
+include "d'ont-panic_episode-1"
+include "mimeType"
+include "shadow-of-the-knight_episode-1"
+include "skynet-revolution_episode-1"
+include "there-is-no-spoon_episode-1"
+include "la-bataille"
+include "the-last-crusade_episode-1"
+include "organic-compounds"
+include "balanced-ternary-computer_encode"
+include "simple-awale"
+include "whats-so-complex-about-mandelbrot"
+include "ghost-legs"
+include "scrabble"
+include "teads-sponsored-challenge"
