@@ -11,9 +11,9 @@ fun Scanner.parseGraph() = nextInt()
 class Link(val from: Int, val to: Int) {
     override fun hashCode() = from + to
 
-    override fun equals(other: Any?) = when (other) {
-//        other === this -> true // this cause a bug
-        !is Link -> false
+    override fun equals(other: Any?) = when {
+        other === this -> true
+        other !is Link -> false
         else -> (from == other.from && to == other.to) || (from == other.to && to == other.from)
     }
 
