@@ -3,7 +3,7 @@ import io.kotlintest.specs.FreeSpec
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-class Test : FreeSpec({
+class `balanced ternary computer encode` : FreeSpec({
 
     infix fun String.testEncodeTo(expected: String) {
         val input = this
