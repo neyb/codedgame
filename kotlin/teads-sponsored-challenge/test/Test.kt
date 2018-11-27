@@ -2,7 +2,7 @@ import io.kotlintest.shouldBe
 import io.kotlintest.shouldNotBe
 import io.kotlintest.specs.FreeSpec
 
-class Test : FreeSpec({
+class `teads sponsored challenge` : FreeSpec({
     "1-2 1-3 1-4 4-5 should have leafs 2, 3 and 5" {
         val graph = Graph(1 to 2, 1 to 3, 1 to 4, 4 to 5)
 

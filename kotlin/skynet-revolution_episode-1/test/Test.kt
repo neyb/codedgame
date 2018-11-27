@@ -1,8 +1,7 @@
-import org.junit.jupiter.api.Test
+import io.kotlintest.specs.FreeSpec
 
-class Test {
-
-    @Test fun `azezae`() {
+class `skynet revolution - episode 1` : FreeSpec({
+    "azezae" {
         val level = Level(3)
         level.addLink(0, 1)
         level.addLink(2, 1)
@@ -10,5 +9,4 @@ class Test {
         val mostCriticalLink = level.getMostCriticalLink(1)
         println(mostCriticalLink)
     }
-
-}
+})
