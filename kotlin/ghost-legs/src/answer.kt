@@ -7,7 +7,7 @@ fun main(args: Array<String>) {
 }
 
 private fun parse(input: Scanner): Legs {
-    val width = input.nextInt()
+    @Suppress("UNUSED_VARIABLE") val width = input.nextInt()
     val height = input.nextInt()
     if (input.hasNextLine()) input.nextLine()
 

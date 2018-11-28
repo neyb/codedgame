@@ -45,8 +45,18 @@ subprojects {
     compileKotlin.kotlinOptions.jvmTarget = "1.8"
     compileTestKotlin.kotlinOptions.jvmTarget = "1.8"
 
+    configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                details.useVersion kotlin_version
+                details.because 'force kotlin version'
+            }
+        }
+    }
+
     dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        compile "org.jetbrains.kotlin:kotlin-stdlib"
+
         testCompile 'org.junit.jupiter:junit-jupiter-api:5.3.1'
         testCompile 'io.kotlintest:kotlintest-runner-junit5:3.1.10'
     }
