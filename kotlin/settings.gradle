@@ -1,5 +1,6 @@
 rootProject.name = 'codedgame-parent'
 
+include "utils"
 include "asciiart"
 include "chevaux-de-course"
 include "defibrillateur"

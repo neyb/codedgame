@@ -38,12 +38,12 @@ class `teads sponsored challenge` : FreeSpec({
         }
 
         "of 1-2-3-4-5-6, 3-7, 4,8 should be 3" {
-            val graph = Graph(1 to 2,2 to 3,3 to 4,4 to 5,5 to 6, 3 to 7, 4 to 8)
+            val graph = Graph(1 to 2, 2 to 3, 3 to 4, 4 to 5, 5 to 6, 3 to 7, 4 to 8)
             graph.minDepth() shouldBe 3
         }
     }
 
     """6<->8 != 14<->10""" {
-        Link(14, 10) shouldNotBe Link(6,8)
+        Link(14, 10) shouldNotBe Link(6, 8)
     }
 })

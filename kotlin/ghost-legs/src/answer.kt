@@ -30,9 +30,9 @@ private fun String.parseLinks(): List<Link> =
                 .toList()
 
 class Legs(
-        top: List<Char>,
-        links: List<Link>,
-        bottom: List<Char>
+    top: List<Char>,
+    links: List<Link>,
+    bottom: List<Char>
 ) {
     class Builder {
         var top: List<Char>? = null

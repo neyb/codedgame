@@ -1,5 +1,5 @@
-import java.lang.IllegalArgumentException
-import java.util.Scanner
+import graph.*
+import java.util.*
 
 fun main(args: Array<String>) {
     val input = Scanner(System.`in`)
@@ -21,45 +21,33 @@ fun main(args: Array<String>) {
 fun Scanner.nextPosition() = Position(nextInt(), nextInt())
 
 fun Scanner.parsePlayMap(nbRows: Int): PlayMap =
-    (0 until nbRows)
+    (0 until nbRows).asSequence()
         .map { it to next() }
         .flatMap { (y, line) ->
-            line.mapIndexed { x, char ->
-                Position(x, y) to CellType.of(char)
+            line.asSequence().mapIndexed { x, char ->
+                Cell(Position(x, y), CellType.of(char))
             }
         }
-        .toMap(HashMap())
+        .toList()
         .let(::PlayMap)
 
-class PlayMap(
-    val cellsByPosition: MutableMap<Position, CellType>
-) {
-    operator fun get(x: Int, y: Int) = cellsByPosition[Position(x, y)]
+class PlayMap(cells: Iterable<Cell>) {
+    private val cellByPosition = cells.map { it.position to it }.toMap()
 
-    fun closests(from: Position, predicate: (Position) -> Boolean): Collection<Position> =
-        closests(setOf(from), HashSet(), predicate)
-
-    private tailrec fun closests(
-        from: Set<Position>,
-        explored: MutableSet<Position>,
-        test: (Position) -> Boolean
-    ): Collection<Position> = when {
-        from.isEmpty() -> from
-        from.any(test) -> from.filter(test)
-        else -> {
-            explored += from
-            val next = from.asSequence()
-                .flatMap { it.neightboursSeq() }
-                .filter { !explored.contains(it) }
-                .toSet()
-            closests(next, explored, test)
-        }
+    private fun graph() = Graph(cellByPosition.values) { cell ->
+        Direction.values().asSequence()
+            .map { dir -> dir.from(cell.position) }
+            .mapNotNull { cellByPosition[it] }
+            .toSet()
     }
 
-    private fun Position.neightboursSeq() = Direction.values().asSequence()
-        .map { it.from(this) }
-        .filter { cellsByPosition[it] != null }
+    operator fun get(x: Int, y: Int): Cell? = cellByPosition[Position(x, y)]
+
+    fun closests(position: Position, that: (Position) -> Boolean): Collection<Cell> =
+        graph().bfsClosests(cellByPosition[position]!!) { that(it.position) }
 }
+
+data class Cell(val position: Position, val cellType: CellType)
 
 enum class CellType {
     space, wall, door, console, unknown;
@@ -78,15 +66,9 @@ enum class CellType {
 
 data class Position(val x: Int, val y: Int)
 
-data class TaggedNode<T>(val pos: Position, var tag: T)
-
 enum class Direction(val xDiff: Int, val yDiff: Int) {
     up(0, -1), down(0, 1), left(-1, 0), right(1, 0);
 
     fun from(pos: Position) = Position(pos.x + xDiff, pos.y + yDiff)
-}
-
-enum class ExploreStatus {
-    unexplored, exploring, explored
 }
 
