@@ -1,4 +1,4 @@
-rootProject.name = 'codedgame-parent'
+rootProject.name = 'codedgame-kotlin'
 
 include "asciiart"
 include "chevaux-de-course"
