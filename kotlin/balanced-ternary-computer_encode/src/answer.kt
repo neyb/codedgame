@@ -1,6 +1,6 @@
 import java.util.*
 
-fun main(args: Array<String>) = Scanner(System.`in`)
+fun main() = Scanner(System.`in`)
         .let(::encode)
         .let(::println)
 

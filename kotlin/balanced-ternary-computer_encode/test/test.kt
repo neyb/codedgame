@@ -1,7 +1,5 @@
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.FreeSpec
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 
 class `balanced ternary computer encode` : FreeSpec({
 
