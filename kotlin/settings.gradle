@@ -1,5 +1,6 @@
 rootProject.name = 'codedgame-kotlin'
 
+include "aneo"
 include "asciiart"
 include "chevaux-de-course"
 include "defibrillateur"
