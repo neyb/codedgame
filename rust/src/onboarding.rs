@@ -6,7 +6,7 @@ macro_rules! parse_input {
     };
 }
 
-type LineReader = FnMut() -> String;
+type LineReader = dyn FnMut() -> String;
 
 fn read_line() -> String {
     let mut input_line = String::new();
@@ -31,6 +31,7 @@ fn read_enemy(read_line: &mut LineReader) -> Enemy {
     }
 }
 
+#[allow(dead_code)]
 pub fn main() {
     loop {
         let enemy_1 = read_enemy(&mut read_line);

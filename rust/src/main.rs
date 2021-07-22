@@ -1,4 +1,4 @@
 mod onboarding;
-mod onedSpreadsheet;
+mod oned_spreadsheet;
 
 fn main() {}
