@@ -1,3 +1,5 @@
+use std::error::Error;
+use std::fmt::{Display, Formatter};
 use std::{cell, io};
 
 fn read_line() -> String {
@@ -8,39 +10,64 @@ fn read_line() -> String {
     input_line.trim().to_string()
 }
 
-enum Value {
-    Value(i32),
+enum Arg {
+    Litteral(i32),
     Reference(u8),
     None(),
 }
 
-impl std::str::FromStr for Value {
-    type Err = ();
+#[derive(Debug)]
+enum ParseArgError {
+    CannotParseLiteral { cause: Box<dyn Error> },
+    CannotParseRef { cause: Box<dyn Error> },
+}
 
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        if s.starts_with("$") {
-            Ok(Value::Reference(
-                s[1..].parse().expect(&format!("cannot parse ref {}", s)),
-            )) //TODO handle error
-        } else if s == "_" {
-            Ok(Value::None())
-        } else {
-            Ok(Value::Value(
-                s.parse().expect(&format!("cannot parse value {}", s)),
-            )) //TODO handle error
+impl Display for ParseArgError {
+    fn fmt(&self, f: &mut Formatter) -> std::fmt::Result {
+        write!(f, "cannot parse argument")
+    }
+}
+
+impl Error for ParseArgError {
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
+        match self {
+            ParseArgError::CannotParseLiteral { cause } => Some(&**cause),
+            ParseArgError::CannotParseRef { cause } => Some(&**cause),
         }
     }
 }
 
-impl Value {
+impl std::str::FromStr for Arg {
+    type Err = ParseArgError;
+
+    fn from_str(s: &str) -> Result<Self, ParseArgError> {
+        if s.starts_with("$") {
+            Ok(Arg::Reference(s[1..].parse().map_err(|err| {
+                ParseArgError::CannotParseRef {
+                    cause: Box::new(err),
+                }
+            })?))
+        } else if s == "_" {
+            Ok(Arg::None())
+        } else {
+            Ok(Arg::Litteral(s.parse().map_err(|err| {
+                ParseArgError::CannotParseLiteral {
+                    cause: Box::new(err),
+                }
+            })?))
+        }
+    }
+}
+
+impl Arg {
     fn calc(&self, cells: &Vec<Cell>) -> i32 {
         match self {
-            Value::Value(value) => value.clone(),
-            Value::Reference(reference) => {
+            Arg::Litteral(value) => value.clone(),
+            Arg::Reference(reference) => {
                 let cell = cells.get(usize::from(*reference)).unwrap();
                 cell.calc(cells)
             }
-            Value::None() => panic!("none as no value"),
+            Arg::None() => panic!("none as no value"),
         }
     }
 }
@@ -72,10 +99,10 @@ impl From<Operation> for Cell {
 }
 
 enum Operation {
-    Value(Value),
-    Add(Value, Value),
-    Sub(Value, Value),
-    Mult(Value, Value),
+    Value(Arg),
+    Add(Arg, Arg),
+    Sub(Arg, Arg),
+    Mult(Arg, Arg),
 }
 
 impl Operation {
@@ -89,19 +116,56 @@ impl Operation {
     }
 }
 
+#[derive(Debug)]
+enum ParseOperationError {
+    UnknownOperator { operator: String },
+    CannotParseArg { cause: ParseArgError },
+}
+
+impl Display for ParseOperationError {
+    fn fmt(&self, f: &mut Formatter) -> std::fmt::Result {
+        f.write_str("cannot parse operation: ");
+        match self {
+            ParseOperationError::UnknownOperator { operator } => {
+                write!(f, "unknown operator {}", operator)
+            }
+            ParseOperationError::CannotParseArg { cause } => {
+                write!(f, "cannot parse arg: {}", cause)
+            }
+        }
+    }
+}
+
+impl Error for ParseOperationError {
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
+        match self {
+            ParseOperationError::CannotParseArg { cause } => Option::Some(cause),
+            ParseOperationError::UnknownOperator { .. } => Option::None,
+        }
+    }
+}
+
+impl From<ParseArgError> for ParseOperationError {
+    fn from(cause: ParseArgError) -> Self {
+        ParseOperationError::CannotParseArg { cause }
+    }
+}
+
 impl std::str::FromStr for Operation {
-    type Err = ();
+    type Err = ParseOperationError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let splitted: Vec<&str> = s.split(" ").collect();
-        let read = |i: usize| splitted[i].parse::<Value>().expect("cannot parse value"); //TODO handle error
+        let read = |i: usize| splitted[i].parse::<Arg>(); //TODO handle error
 
         match splitted[0] {
-            "VALUE" => Ok(Operation::Value(read(1))),
-            "ADD" => Ok(Operation::Add(read(1), read(2))),
-            "SUB" => Ok(Operation::Sub(read(1), read(2))),
-            "MULT" => Ok(Operation::Mult(read(1), read(2))),
-            _ => Err(()),
+            "VALUE" => Ok(Operation::Value(read(1)?)),
+            "ADD" => Ok(Operation::Add(read(1)?, read(2)?)),
+            "SUB" => Ok(Operation::Sub(read(1)?, read(2)?)),
+            "MULT" => Ok(Operation::Mult(read(1)?, read(2)?)),
+            _ => Err(ParseOperationError::UnknownOperator {
+                operator: String::from(splitted[0]),
+            }),
         }
     }
 }
