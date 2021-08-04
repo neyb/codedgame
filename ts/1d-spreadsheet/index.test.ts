@@ -1,6 +1,6 @@
-import {run} from "./1d-spreadsheet.ts";
+import {run} from "./index.ts";
 import {assertEquals} from "https://deno.land/std/testing/asserts.ts";
-import {createReadline as commonCreateReadline} from "./testutils.ts";
+import {createReadline as commonCreateReadline} from "../testutils.ts";
 
 const createReadline = (lines: string[]) => commonCreateReadline([lines.length.toString(), ...lines])
 
